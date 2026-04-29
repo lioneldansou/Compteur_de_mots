@@ -1,15 +1,39 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Nom du fichier à lire
+        String nomFichier = "texte.txt";
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // Compteur de mots
+        int totalMots = 0;
+
+        try {
+            // ouverture du fichier
+            File fichier = new File(nomFichier);
+            Scanner lecteur = new Scanner(fichier);
+
+            //Lecture de  chaque ligne
+            while (lecteur.hasNextLine()) {
+                String ligne = lecteur.nextLine();
+
+                // Séparation de la ligne en mots (délimiteur : espace)
+                String[] mots = ligne.split(" ");
+
+                //Ajout du  nombre de mots de cette ligne
+                totalMots = totalMots + mots.length;
+            }
+
+            // Fermeture du fichier
+            lecteur.close();
+
+            //Affichage du  résultat
+            System.out.println("Nombre total de mots : " + totalMots);
+
+        } catch (FileNotFoundException exception) {
+            System.out.println("Impossible de trouver ce fichier : " + nomFichier);
         }
     }
 }
